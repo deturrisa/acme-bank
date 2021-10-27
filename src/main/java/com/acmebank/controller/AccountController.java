@@ -45,7 +45,7 @@ public class AccountController {
 
   @GetMapping(value = "/accounts", params = "accountNumber")
   @ResponseBody
-  public AccountDTO getByEmail(@RequestParam("accountNumber") int accountNumber) {
+  public AccountDTO getByAccountNumber(@RequestParam("accountNumber") int accountNumber) {
     Account account = accountService.getByAccountNumber(accountNumber);
     return toAccountDTO(account);
   }
