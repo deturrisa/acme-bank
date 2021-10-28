@@ -6,6 +6,7 @@ import com.acmebank.dto.AccountDTO;
 import com.acmebank.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,9 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import static com.acmebank.dto.AccountDTO.toAccountDTO;
 
 @RestController
+@Validated
 public class AccountController {
 
   private final AccountService accountService;
@@ -56,12 +60,12 @@ public class AccountController {
   
   @PutMapping("/accounts/transfer")
   @ResponseBody
-  public List<AccountDTO> transfer(
-@RequestBody Transfer transfer){
+  public ResponseEntity<List<AccountDTO>> transfer(
+@Valid@RequestBody Transfer transfer){
 	  List<AccountDTO> accounts = accountService.transfer(transfer)
       .stream()
       .map(AccountDTO::toAccountDTO)
       .collect(Collectors.toList());
-      return accounts;
+      return ResponseEntity.ok(accounts);
  }
 }
