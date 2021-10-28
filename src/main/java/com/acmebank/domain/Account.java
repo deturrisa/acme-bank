@@ -11,7 +11,7 @@ public class Account {
 	  @Id
 	  private final int accountNumber;
 	  
-	  private final DecimalFormat decimalFormat = new DecimalFormat("0.00");
+	  private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 	  
 	  private final double balance;
 
