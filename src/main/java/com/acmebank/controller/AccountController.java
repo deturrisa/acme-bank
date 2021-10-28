@@ -33,7 +33,7 @@ public class AccountController {
         .createAccount(accountNumber,balance);
     return toAccountDTO(account);
   }
-
+  
   @GetMapping(value = "/accounts")
   @ResponseBody
   public List<AccountDTO> getAllAccounts() {

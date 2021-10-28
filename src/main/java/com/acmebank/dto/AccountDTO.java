@@ -2,16 +2,17 @@ package com.acmebank.dto;
 
 import com.acmebank.domain.Account;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class AccountDTO {
 
   private final int accountNumber;
-  private final long balance;
+  private final double balance;
 
 
   public AccountDTO(int accountNumber,
-		  			long balance) {
+		  double balance) {
     this.accountNumber = accountNumber;
     this.balance = balance;
   }
@@ -24,7 +25,7 @@ public class AccountDTO {
 
 
 
-  public long getBalance() {
+  public double getBalance() {
 	return balance;
   }
 
