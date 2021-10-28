@@ -13,18 +13,19 @@ public class Account {
 	  
 	  private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 	  
-	  private final double balance;
+	  private double balance;
 
-	  public Account() {
+	  
+	 public Account() {
 		this.accountNumber = 0;
 		this.balance = 0;
 
-	  }
+	 }
 	  
-	  public Account(int accountNumber, double balance) {
-	    this.accountNumber = accountNumber;
-	    this.balance = Double.parseDouble(decimalFormat.format(balance));;
-	  }
+	 public Account(int accountNumber, double balance) {
+	   this.accountNumber = accountNumber;
+	   this.balance = Double.parseDouble(decimalFormat.format(balance));;
+	 }
 
 	public int getAccountNumber() {
 		return accountNumber;
@@ -34,5 +35,7 @@ public class Account {
 		return Double.parseDouble(decimalFormat.format(balance));
 	}
 
-	
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
 }

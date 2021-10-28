@@ -1,11 +1,15 @@
 package com.acmebank.controller;
 
 import com.acmebank.domain.Account;
+import com.acmebank.domain.Transfer;
 import com.acmebank.dto.AccountDTO;
 import com.acmebank.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,4 +53,15 @@ public class AccountController {
     Account account = accountService.getByAccountNumber(accountNumber);
     return toAccountDTO(account);
   }
+  
+  @PutMapping("/accounts/transfer")
+  @ResponseBody
+  public List<AccountDTO> transfer(
+@RequestBody Transfer transfer){
+	  List<AccountDTO> accounts = accountService.transfer(transfer)
+      .stream()
+      .map(AccountDTO::toAccountDTO)
+      .collect(Collectors.toList());
+      return accounts;
+ }
 }

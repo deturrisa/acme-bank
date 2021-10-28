@@ -2,8 +2,6 @@ package com.acmebank.dto;
 
 import com.acmebank.domain.Account;
 
-import java.math.BigDecimal;
-import java.util.UUID;
 
 public class AccountDTO {
 

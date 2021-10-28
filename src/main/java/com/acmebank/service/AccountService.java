@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.acmebank.domain.Account;
+import com.acmebank.domain.Transfer;
 import com.acmebank.repository.AccountRepository;
 
 @Service
@@ -21,6 +22,23 @@ public class AccountService {
     this.accountRepository = accountRepository;
   }
 
+//TODO validate transfer object
+  public List<Account> transfer(Transfer transfer)
+  {
+	//TODO check if accounts exist
+	  Account fromAccount = getByAccountNumber(transfer.fromAccountNumber);
+	  Account toAccount = getByAccountNumber(transfer.toAccountNumber);
+	  
+	  //TODO: @Transactional
+	  fromAccount.setBalance(fromAccount.getBalance()-transfer.amount);
+	  toAccount.setBalance(toAccount.getBalance()+transfer.amount);
+	  
+	  accountRepository.save(fromAccount);
+	  accountRepository.save(toAccount);
+      
+	  return getAccounts();
+  }
+  
   public Account createAccount(int accountNumber, long balance) {
     return accountRepository.save(
         new Account(accountNumber, balance));
