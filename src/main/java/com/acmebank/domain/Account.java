@@ -1,6 +1,5 @@
 package com.acmebank.domain;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 import javax.persistence.Entity;
@@ -12,6 +11,8 @@ public class Account {
 	  @Id
 	  private final int accountNumber;
 	  
+	  private final DecimalFormat decimalFormat = new DecimalFormat("0.00");
+	  
 	  private final double balance;
 
 	  public Account() {
@@ -21,9 +22,8 @@ public class Account {
 	  }
 	  
 	  public Account(int accountNumber, double balance) {
-		DecimalFormat decim = new DecimalFormat("0.00");
 	    this.accountNumber = accountNumber;
-	    this.balance = Double.parseDouble(decim.format(balance));;
+	    this.balance = Double.parseDouble(decimalFormat.format(balance));;
 	  }
 
 	public int getAccountNumber() {
@@ -31,7 +31,7 @@ public class Account {
 	}
 
 	public double getBalance() {
-		return balance;
+		return Double.parseDouble(decimalFormat.format(balance));
 	}
 
 	
