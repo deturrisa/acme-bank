@@ -1,6 +1,6 @@
 package com.acmebank.service;
 
-import java.sql.SQLException;
+
 import java.util.List;
 import java.util.stream.StreamSupport;
 import java.util.stream.Collectors;
@@ -15,6 +15,7 @@ import com.acmebank.repository.AccountRepository;
 
 import javassist.NotFoundException;
 import org.springframework.web.server.ResponseStatusException;
+
 @Service
 public class AccountService {
 
@@ -28,7 +29,8 @@ public class AccountService {
 //TODO validate transfer object
   public List<Account> transfer(Transfer transfer) throws NotFoundException
   {
-	
+	  checkEqualAccountNumbers(transfer);
+	  
 	  Account fromAccount = getByAccountNumber(transfer.fromAccountNumber);
 	  Account toAccount = getByAccountNumber(transfer.toAccountNumber);
 	 
@@ -75,5 +77,15 @@ public class AccountService {
     }
     
     return account;
+  }
+  
+  //This could go in a custom @Valid implementation
+  private void checkEqualAccountNumbers(Transfer transfer) 
+  {
+	  if(transfer.toAccountNumber == transfer.fromAccountNumber) 
+	  {
+		  throw new ResponseStatusException(
+	   	           HttpStatus.BAD_REQUEST, "Cannot transfer to same account"); 
+	  } 
   }
 }
