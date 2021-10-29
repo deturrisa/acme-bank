@@ -4,6 +4,9 @@ import com.acmebank.domain.Account;
 import com.acmebank.domain.Transfer;
 import com.acmebank.dto.AccountDTO;
 import com.acmebank.service.AccountService;
+
+import javassist.NotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -53,7 +56,7 @@ public class AccountController {
 
   @GetMapping(value = "/accounts", params = "accountNumber")
   @ResponseBody
-  public AccountDTO getByAccountNumber(@RequestParam("accountNumber") int accountNumber) {
+  public AccountDTO getByAccountNumber(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
     Account account = accountService.getByAccountNumber(accountNumber);
     return toAccountDTO(account);
   }
@@ -61,7 +64,7 @@ public class AccountController {
   @PutMapping("/accounts/transfer")
   @ResponseBody
   public ResponseEntity<List<AccountDTO>> transfer(
-@Valid@RequestBody Transfer transfer){
+@Valid@RequestBody Transfer transfer) throws NotFoundException{
 	  List<AccountDTO> accounts = accountService.transfer(transfer)
       .stream()
       .map(AccountDTO::toAccountDTO)
