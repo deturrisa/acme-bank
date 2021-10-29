@@ -29,8 +29,16 @@ public class AccountService {
 	  Account fromAccount = getByAccountNumber(transfer.fromAccountNumber);
 	  Account toAccount = getByAccountNumber(transfer.toAccountNumber);
 	  
+	  double newFromAccountBalance = fromAccount.getBalance()-transfer.amount;
+	  
+	  
+	  if(newFromAccountBalance < 0) 
+	  {
+		  throw new UnsupportedOperationException("Insufficient funds forn transaction");
+	  }
+	  
 	  //TODO: @Transactional
-	  fromAccount.setBalance(fromAccount.getBalance()-transfer.amount);
+	  fromAccount.setBalance(newFromAccountBalance);
 	  toAccount.setBalance(toAccount.getBalance()+transfer.amount);
 	  
 	  accountRepository.save(fromAccount);
