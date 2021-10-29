@@ -1,1 +1,1 @@
-curl http://localhost:8080/accounts?accountNumber=12345678
+curl http://localhost:8080/accounts/balance?accountNumber=12345678

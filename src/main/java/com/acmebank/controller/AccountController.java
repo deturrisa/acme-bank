@@ -1,6 +1,7 @@
 package com.acmebank.controller;
 
 import com.acmebank.domain.Account;
+import com.acmebank.domain.Balance;
 import com.acmebank.domain.Transfer;
 import com.acmebank.dto.AccountDTO;
 import com.acmebank.service.AccountService;
@@ -8,6 +9,7 @@ import com.acmebank.service.AccountService;
 import javassist.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +56,13 @@ public class AccountController {
         .collect(Collectors.toList());
   }
 
+  @GetMapping(value = "/accounts/balance", params = "accountNumber")
+  @ResponseBody
+  public ResponseEntity<Balance> getBalance(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
+    Account account = accountService.getByAccountNumber(accountNumber);
+    return new ResponseEntity<Balance>(new Balance(account.getBalance()), HttpStatus.OK);
+  }
+  
   @GetMapping(value = "/accounts", params = "accountNumber")
   @ResponseBody
   public AccountDTO getByAccountNumber(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
