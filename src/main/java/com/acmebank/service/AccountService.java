@@ -37,7 +37,8 @@ public class AccountService {
 	  
 	  if(newFromAccountBalance < 0) 
 	  {
-		  throw new UnsupportedOperationException("Insufficient funds forn transaction");
+		  throw new ResponseStatusException(
+   	           HttpStatus.BAD_REQUEST, "Insufficient funds for transfer");
 	  }
 	  
 	  //TODO: @Transactional
