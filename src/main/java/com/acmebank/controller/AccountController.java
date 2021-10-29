@@ -63,12 +63,12 @@ public class AccountController {
   
   @PutMapping("/accounts/transfer")
   @ResponseBody
-  public ResponseEntity<List<AccountDTO>> transfer(
+  public List<AccountDTO> transfer(
 @Valid@RequestBody Transfer transfer) throws NotFoundException{
 	  List<AccountDTO> accounts = accountService.transfer(transfer)
       .stream()
       .map(AccountDTO::toAccountDTO)
       .collect(Collectors.toList());
-      return ResponseEntity.ok(accounts);
+      return accounts;
  }
 }
