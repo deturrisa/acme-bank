@@ -15,6 +15,16 @@ public class ValidateTransferRequestService {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"The withdraw Account Number is invalid");
 		}
 		
+		if(transfer.amount <= 0) 
+		{
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Transfer amount must be greater than zero");
+		}
+		
+		if(transfer.toAccountNumber == transfer.fromAccountNumber) 
+		{
+			throw new ResponseStatusException(
+		   	           HttpStatus.BAD_REQUEST, "Cannot transfer to same account"); 
+		} 
 	}
 	
 	

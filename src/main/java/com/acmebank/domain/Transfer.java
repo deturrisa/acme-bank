@@ -10,11 +10,9 @@ public class Transfer {
 		this.toAccountNumber = toAccountNumber;
 		this.amount = amount;
 	}
-	//@Min(value=1,message="The withdraw Account Number is invalid") 
+
 	public int fromAccountNumber;
-	//@Min(value=1,message="The credit Account Number is invalid") 
 	public int toAccountNumber;
-	//@DecimalMin(value = "0.01",message = "Transfer amount must be greater than zero") 
 	public double amount;
 }
 	
