@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.acmebank.domain.Account;
 import com.acmebank.domain.Transfer;
@@ -20,16 +21,19 @@ import org.springframework.web.server.ResponseStatusException;
 public class AccountService {
 
   private final AccountRepository accountRepository;
+  
+  private ValidateTransferRequestService validateTransferRequestService;
 
   @Autowired
-  public AccountService(AccountRepository accountRepository) {
+  public AccountService(AccountRepository accountRepository, ValidateTransferRequestService validateTransferRequestService) {
     this.accountRepository = accountRepository;
+    this.validateTransferRequestService = validateTransferRequestService;
   }
 
-//TODO validate transfer object
+  @Transactional
   public List<Account> transfer(Transfer transfer) throws NotFoundException
   {
-	  checkEqualAccountNumbers(transfer);
+	  validateTransferRequestService.validate(transfer);
 	  
 	  Account fromAccount = getBalance(transfer.fromAccountNumber);
 	  Account toAccount = getBalance(transfer.toAccountNumber);

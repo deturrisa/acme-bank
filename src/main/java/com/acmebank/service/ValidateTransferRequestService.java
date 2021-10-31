@@ -1,10 +1,13 @@
 package com.acmebank.service;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
 import com.acmebank.domain.Transfer;
 
 import org.springframework.web.server.ResponseStatusException;
 //This could be done with custom annotations but since scope is not big put in service
+@Service
 public class ValidateTransferRequestService {
 
 	
