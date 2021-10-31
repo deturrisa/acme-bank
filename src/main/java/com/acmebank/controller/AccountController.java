@@ -3,7 +3,7 @@ package com.acmebank.controller;
 import com.acmebank.domain.Account;
 import com.acmebank.domain.Transfer;
 import com.acmebank.dto.AccountDTO;
-import com.acmebank.service.AccountService;
+import com.acmebank.service.AccountManagerService;
 
 import javassist.NotFoundException;
 
@@ -28,18 +28,18 @@ import static com.acmebank.dto.AccountDTO.toAccountDTO;
 @Validated
 public class AccountController {
 
-  private final AccountService accountService;
+  private final AccountManagerService accountManagerService;
 
   @Autowired
-  public AccountController(AccountService accountService) {
-    this.accountService = accountService;
+  public AccountController(AccountManagerService accountManagerService) {
+    this.accountManagerService = accountManagerService;
   }
 
   @PostMapping(value = "/accounts")
   @ResponseBody
   public AccountDTO createAccount(int accountNumber,
                                     long balance, String currency) {
-    Account account = accountService
+    Account account = accountManagerService
         .createAccount(accountNumber,balance,currency);
     return toAccountDTO(account);
   }
@@ -47,7 +47,7 @@ public class AccountController {
   @GetMapping(value = "/accounts")
   @ResponseBody
   public List<AccountDTO> getAllAccounts() {
-    return accountService.getAccounts()
+    return accountManagerService.getAccounts()
         .stream()
         .map(AccountDTO::toAccountDTO)
         .collect(Collectors.toList());
@@ -56,7 +56,7 @@ public class AccountController {
   @GetMapping(value = "/accounts", params = "accountNumber")
   @ResponseBody
   public AccountDTO getBalance(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
-    Account account = accountService.getBalance(accountNumber);
+    Account account = accountManagerService.getBalance(accountNumber);
     return toAccountDTO(account);
   }
   
@@ -64,7 +64,7 @@ public class AccountController {
   @ResponseBody
   public List<AccountDTO> transfer(
 @Valid@RequestBody Transfer transfer) throws NotFoundException{
-	  List<AccountDTO> accounts = accountService.transfer(transfer)
+	  List<AccountDTO> accounts = accountManagerService.transfer(transfer)
       .stream()
       .map(AccountDTO::toAccountDTO)
       .collect(Collectors.toList());

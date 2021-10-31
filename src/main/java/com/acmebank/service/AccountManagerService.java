@@ -18,14 +18,14 @@ import javassist.NotFoundException;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class AccountService {
+public class AccountManagerService {
 
   private final AccountRepository accountRepository;
   
   private ValidateTransferRequestService validateTransferRequestService;
 
   @Autowired
-  public AccountService(AccountRepository accountRepository, ValidateTransferRequestService validateTransferRequestService) {
+  public AccountManagerService(AccountRepository accountRepository, ValidateTransferRequestService validateTransferRequestService) {
     this.accountRepository = accountRepository;
     this.validateTransferRequestService = validateTransferRequestService;
   }
