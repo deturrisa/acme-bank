@@ -57,7 +57,7 @@ public class AccountManagerService {
 	  return getAccounts();
   }
   
-  public Account createAccount(int accountNumber, long balance, String currency) {
+  public Account createAccount(int accountNumber, double balance, String currency) {
     return accountRepository.save(
         new Account(accountNumber, balance,currency));
   }
@@ -70,7 +70,7 @@ public class AccountManagerService {
         .collect(Collectors.toList());
   }
 
-  public Account getBalance(int accountNumber) throws NotFoundException {
+  public Account getBalance(int accountNumber) throws ResponseStatusException {
 	  
     Account account = accountRepository.findByAccountNumber(accountNumber);
     
@@ -83,13 +83,4 @@ public class AccountManagerService {
     return account;
   }
   
-  //This could go in a custom @Valid implementation
-  private void checkEqualAccountNumbers(Transfer transfer) 
-  {
-	  if(transfer.toAccountNumber == transfer.fromAccountNumber) 
-	  {
-		  throw new ResponseStatusException(
-	   	           HttpStatus.BAD_REQUEST, "Cannot transfer to same account"); 
-	  } 
-  }
 }
