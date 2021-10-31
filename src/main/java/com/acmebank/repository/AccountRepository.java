@@ -7,7 +7,5 @@ public interface AccountRepository
     extends CrudRepository<Account, Double> {
 
   Account findByAccountNumber(int accountNumber);
-
-  void save(double amount);
   
 }

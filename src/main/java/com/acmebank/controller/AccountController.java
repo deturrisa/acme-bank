@@ -53,6 +53,7 @@ public class AccountController {
         .collect(Collectors.toList());
   }
   
+  //should put account number in post request but for simplicity added to get
   @GetMapping(value = "/accounts", params = "accountNumber")
   @ResponseBody
   public AccountDTO getBalance(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
