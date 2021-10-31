@@ -1,7 +1,6 @@
 package com.acmebank.controller;
 
 import com.acmebank.domain.Account;
-import com.acmebank.domain.Balance;
 import com.acmebank.domain.Transfer;
 import com.acmebank.dto.AccountDTO;
 import com.acmebank.service.AccountService;
@@ -9,8 +8,6 @@ import com.acmebank.service.AccountService;
 import javassist.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,9 +38,9 @@ public class AccountController {
   @PostMapping(value = "/accounts")
   @ResponseBody
   public AccountDTO createAccount(int accountNumber,
-                                    long balance) {
+                                    long balance, String currency) {
     Account account = accountService
-        .createAccount(accountNumber,balance);
+        .createAccount(accountNumber,balance,currency);
     return toAccountDTO(account);
   }
   
@@ -55,18 +52,11 @@ public class AccountController {
         .map(AccountDTO::toAccountDTO)
         .collect(Collectors.toList());
   }
-
-  @GetMapping(value = "/accounts/balance", params = "accountNumber")
-  @ResponseBody
-  public ResponseEntity<Balance> getBalance(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
-    Account account = accountService.getByAccountNumber(accountNumber);
-    return new ResponseEntity<Balance>(new Balance(account.getBalance()), HttpStatus.OK);
-  }
   
   @GetMapping(value = "/accounts", params = "accountNumber")
   @ResponseBody
-  public AccountDTO getByAccountNumber(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
-    Account account = accountService.getByAccountNumber(accountNumber);
+  public AccountDTO getBalance(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
+    Account account = accountService.getBalance(accountNumber);
     return toAccountDTO(account);
   }
   

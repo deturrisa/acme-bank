@@ -11,20 +11,30 @@ public class Account {
 	  @Id
 	  private final int accountNumber;
 	  
-	  private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
-	  
 	  private double balance;
+	  
+	  private String currency;
 
 	  
-	 public Account() {
+	 public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public Account() {
 		this.accountNumber = 0;
 		this.balance = 0;
+		this.currency = "HKD";
 
 	 }
 	  
-	 public Account(int accountNumber, double balance) {
+	 public Account(int accountNumber, double balance, String currency) {
 	   this.accountNumber = accountNumber;
-	   this.balance = Double.parseDouble(decimalFormat.format(balance));;
+	   this.balance = balance;
+	   this.currency = currency;
 	 }
 
 	public int getAccountNumber() {
@@ -32,7 +42,7 @@ public class Account {
 	}
 
 	public double getBalance() {
-		return Double.parseDouble(decimalFormat.format(balance));
+		return balance;
 	}
 
 	public void setBalance(double balance) {
