@@ -1,1 +1,0 @@
-curl http://localhost:8080/accounts/balance?accountNumber=88888888
