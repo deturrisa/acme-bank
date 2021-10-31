@@ -31,8 +31,8 @@ public class AccountService {
   {
 	  checkEqualAccountNumbers(transfer);
 	  
-	  Account fromAccount = getByAccountNumber(transfer.fromAccountNumber);
-	  Account toAccount = getByAccountNumber(transfer.toAccountNumber);
+	  Account fromAccount = getBalance(transfer.fromAccountNumber);
+	  Account toAccount = getBalance(transfer.toAccountNumber);
 	 
 	  double newFromAccountBalance = fromAccount.getBalance()-transfer.amount;
 	  
@@ -53,9 +53,9 @@ public class AccountService {
 	  return getAccounts();
   }
   
-  public Account createAccount(int accountNumber, long balance) {
+  public Account createAccount(int accountNumber, long balance, String currency) {
     return accountRepository.save(
-        new Account(accountNumber, balance));
+        new Account(accountNumber, balance,currency));
   }
 
   public List<Account> getAccounts() {
@@ -66,7 +66,7 @@ public class AccountService {
         .collect(Collectors.toList());
   }
 
-  public Account getByAccountNumber(int accountNumber) throws NotFoundException {
+  public Account getBalance(int accountNumber) throws NotFoundException {
 	  
     Account account = accountRepository.findByAccountNumber(accountNumber);
     

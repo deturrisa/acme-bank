@@ -39,9 +39,9 @@ public class AccountController {
   @PostMapping(value = "/accounts")
   @ResponseBody
   public AccountDTO createAccount(int accountNumber,
-                                    long balance) {
+                                    long balance, String currency) {
     Account account = accountService
-        .createAccount(accountNumber,balance);
+        .createAccount(accountNumber,balance,currency);
     return toAccountDTO(account);
   }
   
@@ -56,8 +56,8 @@ public class AccountController {
 
   @GetMapping(value = "/accounts", params = "accountNumber")
   @ResponseBody
-  public AccountDTO getByAccountNumber(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
-    Account account = accountService.getByAccountNumber(accountNumber);
+  public AccountDTO getBalance(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
+    Account account = accountService.getBalance(accountNumber);
     return toAccountDTO(account);
   }
   

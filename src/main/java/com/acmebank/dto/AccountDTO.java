@@ -7,12 +7,13 @@ public class AccountDTO {
 
   private final int accountNumber;
   private final double balance;
-
+  private String currency;
 
   public AccountDTO(int accountNumber,
-		  double balance) {
+		  double balance, String currency) {
     this.accountNumber = accountNumber;
     this.balance = balance;
+    this.currency = currency;
   }
 
  
@@ -32,6 +33,18 @@ public class AccountDTO {
 public static AccountDTO toAccountDTO(Account account) {
     return new AccountDTO(
         account.getAccountNumber(),
-        account.getBalance());
+        account.getBalance(),
+        account.getCurrency());
   }
+
+
+
+public String getCurrency() {
+	return currency;
+}
+
+public void setCurrency(String currency) {
+	this.currency = currency;
+}
+
 }
