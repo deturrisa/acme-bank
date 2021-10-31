@@ -16,7 +16,6 @@ public class ValidateTransferRequestServiceTest {
 	public void whenFromAccountNumberIsInvalid_thenThrowResponseStatusException() {
 		
 		//Arrange
-		
 		ValidateTransferRequestService sut = new ValidateTransferRequestService();
 		Transfer transfer = new Transfer(0,12345678,500000.0);
 		//Act

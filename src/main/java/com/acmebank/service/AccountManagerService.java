@@ -1,6 +1,7 @@
 package com.acmebank.service;
 
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.StreamSupport;
 import java.util.stream.Collectors;
@@ -14,7 +15,6 @@ import com.acmebank.domain.Account;
 import com.acmebank.domain.Transfer;
 import com.acmebank.repository.AccountRepository;
 
-import javassist.NotFoundException;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -31,7 +31,7 @@ public class AccountManagerService {
   }
 
   @Transactional
-  public List<Account> transfer(Transfer transfer) throws NotFoundException
+  public List<Account> transfer(Transfer transfer) throws ResponseStatusException
   {
 	  validateTransferRequestService.validate(transfer);
 	  
@@ -46,15 +46,20 @@ public class AccountManagerService {
    	           HttpStatus.BAD_REQUEST, "Insufficient funds for transfer");
 	  }
 	  
+	  //can withdraw funds now deposit funds into toAccount
+	  
 	  Account toAccount = getBalance(transfer.toAccountNumber);
 	  
+	  double newToAccountBalance = toAccount.getBalance()+transfer.amount;
+	  
 	  fromAccount.setBalance(newFromAccountBalance);
-	  toAccount.setBalance(toAccount.getBalance()+transfer.amount);
+	  toAccount.setBalance(newToAccountBalance);
 	  
 	  accountRepository.save(fromAccount);
 	  accountRepository.save(toAccount);
-      
-	  return getAccounts();
+	  
+	  return Arrays.asList(fromAccount, toAccount);
+
   }
   
   public Account createAccount(int accountNumber, double balance, String currency) {
