@@ -1,0 +1,1 @@
+curl -H "Content-Type: application/json" -X PUT -d '{"fromAccountNumber":"12345678","toAccountNumber":"88888888", "amount":"2.222222"}' http://localhost:8080/accounts/transfer
