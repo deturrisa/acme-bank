@@ -36,8 +36,7 @@ public class AccountManagerService {
 	  validateTransferRequestService.validate(transfer);
 	  
 	  Account fromAccount = getBalance(transfer.fromAccountNumber);
-	  Account toAccount = getBalance(transfer.toAccountNumber);
-	 
+	  
 	  double newFromAccountBalance = fromAccount.getBalance()-transfer.amount;
 	  
 	  
@@ -47,7 +46,8 @@ public class AccountManagerService {
    	           HttpStatus.BAD_REQUEST, "Insufficient funds for transfer");
 	  }
 	  
-	  //TODO: @Transactional
+	  Account toAccount = getBalance(transfer.toAccountNumber);
+	  
 	  fromAccount.setBalance(newFromAccountBalance);
 	  toAccount.setBalance(toAccount.getBalance()+transfer.amount);
 	  
