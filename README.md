@@ -33,6 +33,13 @@ $ sh requests\<script_name>.sh | python -mjson.tool
 | transfer_not_two_decimal_places| transfer amount that is not two decimal places| BAD_REQUEST 
 | get_account_not_exist| get account that doesnt exist | NOT_FOUND
 
+# Tests
+The scripts above can be treated as Integration Tests and the following command can be run from the root to execute the Unit Tests.
+
+```sh
+$ mvn test
+```
+
 ### Assumptions / other considerations
 The balance in the 200 responses is of type double which means a whole integer will be returned as **100.0** NOT **100.00** for example. If we wanted two decimal places in the response we would have to convert from double to string which might make it troublesome for other APIs that consume the payload. 
 However transfer requests restrict the amount to two decimal places so we can always assume the returned balance will be either less or equal to two decimal places. This will not distrupt further calculations with the balance.
