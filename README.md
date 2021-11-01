@@ -26,6 +26,7 @@ $ sh requests\<script_name>.sh | python -mjson.tool
 | get_balance_88888888 | gets balance of *88888888*| REQUIREMENT
 | transfer_500000_12345678_88888888 | transfers 500,000HKD from *1234567* to *88888888*| REQUIREMENT
 | transfer_0 | try to transfer 0 amount| BAD_REQUEST
+| transfer_to_same_account | try to transfer to same account number| BAD_REQUEST
 | transfer_invalid_from_account_number | invalid FROM account number| BAD_REQUEST
 | transfer_invalid_to_account_number | invalid TO account number| BAD_REQUEST
 | transfer_not_two_decimal_places| transfer amount that is not two decimal places| BAD_REQUEST 
