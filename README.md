@@ -166,3 +166,7 @@ Please refer to test scripts
 
 
 </tr>
+
+### Assumptions / other considerations
+The balance in the 200 responses is of type double which means a whole integer will be returned as **100.0** NOT **100.00** for example. If we wanted two decimal places in the response we would have to convert from double to string which might make it troublesome for other APIs that consume the payload. 
+However transfer requests restrict the amount to two decimal places so we can always assume the returned balance will be either less or equal to two decimal places. This will not distrupt further calculations with the balance.
