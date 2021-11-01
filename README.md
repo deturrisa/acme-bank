@@ -33,7 +33,7 @@ $ sh requests\<script_name>.sh | python -mjson.tool
 | transfer_not_two_decimal_places| transfer amount that is not two decimal places| BAD_REQUEST 
 | get_account_not_exist| get account that doesnt exist | NOT_FOUND
 
-# Tests
+### Tests
 The scripts above can be treated as Integration Tests and the following command can be run from the root to execute the Unit Tests.
 
 ```sh
