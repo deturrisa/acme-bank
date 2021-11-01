@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,7 +51,7 @@ public class AccountController {
   @JsonView(View.BalanceView.class) 
   @GetMapping(value = "/accounts", params = "accountNumber")
   @ResponseBody
-  public AccountDTO getBalance(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
+  public AccountDTO getBalance(@RequestParam("accountNumber") int accountNumber) throws ResponseStatusException {
     Account account = accountManagerService.getBalance(accountNumber);
     return toAccountDTO(account);
   }
@@ -59,7 +60,7 @@ public class AccountController {
   @PutMapping("/accounts/transfer")
   @ResponseBody
   public List<AccountDTO> transfer(
-@Valid@RequestBody Transfer transfer) throws NotFoundException{
+@Valid@RequestBody Transfer transfer) throws ResponseStatusException{
 	  List<AccountDTO> accounts = accountManagerService.transfer(transfer)
       .stream()
       .map(AccountDTO::toAccountDTO)
