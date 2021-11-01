@@ -31,7 +31,7 @@ $ sh requests\<script_name>.sh | python -mjson.tool
 | transfer_invalid_from_account_number | invalid FROM account number| BAD_REQUEST
 | transfer_invalid_to_account_number | invalid TO account number| BAD_REQUEST
 | transfer_not_two_decimal_places| transfer amount that is not two decimal places| BAD_REQUEST 
-| get_account_not_exist.| get account that doesnt exist | NOT_FOUND
+| get_account_not_exist| get account that doesnt exist | NOT_FOUND
 
 ### Endpoints
 
