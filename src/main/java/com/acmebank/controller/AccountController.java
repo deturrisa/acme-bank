@@ -4,6 +4,8 @@ import com.acmebank.domain.Account;
 import com.acmebank.domain.Transfer;
 import com.acmebank.dto.AccountDTO;
 import com.acmebank.service.AccountManagerService;
+import com.acmebank.views.View;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javassist.NotFoundException;
 
@@ -45,6 +47,7 @@ public class AccountController {
   }
     
   //should put account number in post request but for simplicity added to get
+  @JsonView(View.BalanceView.class) 
   @GetMapping(value = "/accounts", params = "accountNumber")
   @ResponseBody
   public AccountDTO getBalance(@RequestParam("accountNumber") int accountNumber) throws NotFoundException {
@@ -52,6 +55,7 @@ public class AccountController {
     return toAccountDTO(account);
   }
   
+  @JsonView(View.BalanceViewWithNumber.class)
   @PutMapping("/accounts/transfer")
   @ResponseBody
   public List<AccountDTO> transfer(
