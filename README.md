@@ -33,6 +33,10 @@ $ sh requests\<script_name>.sh | python -mjson.tool
 | transfer_not_two_decimal_places| transfer amount that is not two decimal places| BAD_REQUEST 
 | get_account_not_exist| get account that doesnt exist | NOT_FOUND
 
+### Assumptions / other considerations
+The balance in the 200 responses is of type double which means a whole integer will be returned as **100.0** NOT **100.00** for example. If we wanted two decimal places in the response we would have to convert from double to string which might make it troublesome for other APIs that consume the payload. 
+However transfer requests restrict the amount to two decimal places so we can always assume the returned balance will be either less or equal to two decimal places. This will not distrupt further calculations with the balance.
+
 ### Endpoints
 
 The following documents the API endpoints with payloads. Please note that for getting an account balance the account number should be passed in a POST request as it contains sensitve information. But for the purpose of simplicity I left it in a GET request;
@@ -167,6 +171,4 @@ Please refer to test scripts
 
 </tr>
 
-### Assumptions / other considerations
-The balance in the 200 responses is of type double which means a whole integer will be returned as **100.0** NOT **100.00** for example. If we wanted two decimal places in the response we would have to convert from double to string which might make it troublesome for other APIs that consume the payload. 
-However transfer requests restrict the amount to two decimal places so we can always assume the returned balance will be either less or equal to two decimal places. This will not distrupt further calculations with the balance.
+
