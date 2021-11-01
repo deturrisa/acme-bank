@@ -79,7 +79,6 @@ RESPONSE
 <td>
 <pre>
 {
-    "accountNumber": int,
     "balance": double,
     "currency": string
 }
