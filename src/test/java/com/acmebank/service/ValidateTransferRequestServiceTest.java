@@ -61,4 +61,40 @@ public class ValidateTransferRequestServiceTest {
 	    
 	    assertEquals(HttpStatus.BAD_REQUEST , exception.getStatus());
 	}
+	
+	@Test
+	public void whenAmountIsNotPositvie_thenThrowResponseStatusException() {
+		
+		//Arrange
+		
+		ValidateTransferRequestService sut = new ValidateTransferRequestService();
+		Transfer transfer = new Transfer(12345678,12345678,0);
+		//Act
+		
+		//Assert
+		ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+	    	sut.validate(transfer);
+	    });
+	    
+	    assertEquals(HttpStatus.BAD_REQUEST , exception.getStatus());
+	}
+	
+	@Test
+	public void whenAmountIsNotTwoDecimalPlaces_thenThrowResponseStatusException() {
+		
+		//Arrange
+		
+		ValidateTransferRequestService sut = new ValidateTransferRequestService();
+		Transfer transfer = new Transfer(12345678,12345678,2.222222);
+		//Act
+		
+		//Assert
+		ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
+	    	sut.validate(transfer);
+	    });
+	    
+	    assertEquals(HttpStatus.BAD_REQUEST , exception.getStatus());
+	}
+	
+	
 }

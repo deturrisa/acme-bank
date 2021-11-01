@@ -1,5 +1,7 @@
 package com.acmebank.service;
 
+import java.math.BigDecimal;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,11 @@ public class ValidateTransferRequestService {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Transfer amount must be greater than zero");
 		}
 		
+		if(isValidDecimalPlaces(transfer.amount)) 
+		{
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Transfer amount must be two decmial places");
+		}
+		
 		if(transfer.toAccountNumber == transfer.fromAccountNumber) 
 		{
 			throw new ResponseStatusException(
@@ -30,5 +37,8 @@ public class ValidateTransferRequestService {
 		} 
 	}
 	
-	
+	private boolean isValidDecimalPlaces(double amount) 
+	{
+		return (BigDecimal.valueOf(amount).scale() > 2);
+	}
 }

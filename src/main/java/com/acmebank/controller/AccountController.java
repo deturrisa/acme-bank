@@ -43,16 +43,7 @@ public class AccountController {
         .createAccount(accountNumber,balance,currency);
     return toAccountDTO(account);
   }
-  
-  @GetMapping(value = "/accounts")
-  @ResponseBody
-  public List<AccountDTO> getAllAccounts() {
-    return accountManagerService.getAccounts()
-        .stream()
-        .map(AccountDTO::toAccountDTO)
-        .collect(Collectors.toList());
-  }
-  
+    
   //should put account number in post request but for simplicity added to get
   @GetMapping(value = "/accounts", params = "accountNumber")
   @ResponseBody

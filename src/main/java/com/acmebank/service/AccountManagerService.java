@@ -67,14 +67,6 @@ public class AccountManagerService {
         new Account(accountNumber, balance,currency));
   }
 
-  public List<Account> getAccounts() {
-    return StreamSupport.stream(
-        accountRepository
-            .findAll()
-            .spliterator(), false)
-        .collect(Collectors.toList());
-  }
-
   public Account getBalance(int accountNumber) throws ResponseStatusException {
 	  
     Account account = accountRepository.findByAccountNumber(accountNumber);
