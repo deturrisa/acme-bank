@@ -12,11 +12,11 @@ $ sh requests\create_all.sh
 
 All other requests described below can be executed like
 ```sh
-$ sh requests\<script_name>.sh
+$ sh requests\script_name.sh
 ```
 NOTE : if python installed you can run the following to prettify the output
 ```sh
-$ sh requests\<script_name>.sh | python -mjson.tool
+$ sh requests\script_name.sh | python -mjson.tool
 ```
 
 | script_name | Description | Type |
